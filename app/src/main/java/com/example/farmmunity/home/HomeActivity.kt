@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
+import com.example.farmmunity.core.AppConstants
 import com.example.farmmunity.ui.theme.FarmmunityTheme
 
 class HomeActivity : ComponentActivity() {
@@ -16,9 +17,9 @@ class HomeActivity : ComponentActivity() {
             FarmmunityTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = AppConstants.COLOR_BROWN
                 ) {
-
+                    Text(text = "Hello Farmers!")
                 }
             }
         }

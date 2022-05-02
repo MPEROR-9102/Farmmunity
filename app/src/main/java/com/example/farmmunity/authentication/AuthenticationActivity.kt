@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import com.example.farmmunity.authentication.navigation.NavGraph
 import com.example.farmmunity.ui.theme.FarmmunityTheme
 
 class AuthenticationActivity : ComponentActivity() {
@@ -18,7 +20,8 @@ class AuthenticationActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
+                    val navHostController = rememberNavController()
+                    NavGraph(navHostController)
                 }
             }
         }
