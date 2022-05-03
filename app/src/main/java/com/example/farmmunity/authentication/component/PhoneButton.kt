@@ -1,4 +1,4 @@
-package com.example.farmmunity.authentication.intro.component
+package com.example.farmmunity.authentication.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

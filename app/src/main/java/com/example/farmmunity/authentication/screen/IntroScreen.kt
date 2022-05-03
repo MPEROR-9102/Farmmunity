@@ -1,11 +1,11 @@
-package com.example.farmmunity.authentication.intro
+package com.example.farmmunity.authentication.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -13,23 +13,44 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.farmmunity.R
-import com.example.farmmunity.authentication.core.AuthenticationConstants
-import com.example.farmmunity.authentication.intro.component.GoogleButton
-import com.example.farmmunity.authentication.intro.component.PhoneButton
+import com.example.farmmunity.authentication.AuthenticationViewModel
+import com.example.farmmunity.authentication.component.GoogleButton
+import com.example.farmmunity.authentication.component.PhoneAlertDialog
+import com.example.farmmunity.authentication.component.PhoneButton
+import com.example.farmmunity.authentication.component.ProgressIndicator
+import com.example.farmmunity.authentication.core.AuthenticationUtils.Companion.printError
+import com.example.farmmunity.authentication.navigation.AuthenticationScreen
 import com.example.farmmunity.core.AppConstants
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun IntroScreen(
-    navHostController: NavHostController? = null
+    navHostController: NavHostController,
+    authenticationViewModel: AuthenticationViewModel
 ) {
 
     val lobsterFontFamily = FontFamily(
         Font(R.font.lobster_regular, FontWeight.Normal)
     )
+
+    LaunchedEffect(key1 = true) {
+        authenticationViewModel.introEventFlow.collectLatest { uiEvent ->
+            when (uiEvent) {
+                is AuthenticationViewModel.IntroUIEvent.ShowVerifyScreen -> {
+                    navHostController.navigate(
+                        AuthenticationScreen.VerifyScreen.route + "/${uiEvent.phone}"
+                    ) {
+                        popUpTo(AuthenticationScreen.IntroScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -50,7 +71,7 @@ fun IntroScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = AuthenticationConstants.APP_NAME,
+                text = AppConstants.APP_NAME,
                 style = MaterialTheme.typography.h2.copy(
                     fontWeight = FontWeight.Bold,
                     color = AppConstants.COLOR_BROWN.copy(alpha = .75f)
@@ -67,26 +88,26 @@ fun IntroScreen(
                 GoogleButton(
                     modifier = Modifier.fillMaxWidth(.8f)
                 ) {
-                    //
+                    authenticationViewModel.onGoogleSignInClicked()
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 PhoneButton(
                     modifier = Modifier.fillMaxWidth(.8f)
                 ) {
-                    //
+                    printError("Reach 1")
+                    authenticationViewModel.openDialog.value = true
                 }
             }
+        }
+
+        if (authenticationViewModel.openDialog.value) {
+            PhoneAlertDialog(authenticationViewModel)
+        }
+        if (authenticationViewModel.loadingState.value) {
+            ProgressIndicator()
         }
     }
 }
 
 //context.startActivity(Intent(context, HomeActivity::class.java))
 //(context as Activity).finish()
-
-@Preview
-@Composable
-fun IntroScreenPreview() {
-    Surface {
-        IntroScreen()
-    }
-}

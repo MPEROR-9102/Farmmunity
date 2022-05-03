@@ -2,15 +2,23 @@ package com.example.farmmunity.authentication.core
 
 object AuthenticationConstants {
 
-    const val APP_NAME = "Farmmunity"
-    const val APP_DESC = "A Community For Farmers"
+    const val TAG = "AuthenticationModule"
 
-    // Authentication Screen
+    // Screen
     const val INTRO_SCREEN = "intro_screen"
+    const val VERIFY_SCREEN = "verify_screen"
 
-    // Buttons
+    // Button
     const val GOOGLE_TEXT = "Google"
     const val PHONE_TEXT = "Phone"
-    const val PHONE_SCREEN = "phone_screen"
-    const val VERIFY_SCREEN = "verify_screen"
+    const val SEND = "Send"
+    const val DISMISS = "Dismiss"
+    const val SUBMIT = "Submit"
+    const val RESEND = "Resend"
+
+    // Placeholders
+    const val CODE = "OTP"
+
+    // Google Sign In
+    const val RC_GOOGLE_SIGN_IN = 123
 }
