@@ -13,7 +13,7 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 
 @Composable
-fun NavGraph(
+fun AuthenticationNavGraph(
     navHostController: NavHostController,
     authenticationViewModel: AuthenticationViewModel,
     phoneAuthOptionsBuilder: PhoneAuthOptions.Builder

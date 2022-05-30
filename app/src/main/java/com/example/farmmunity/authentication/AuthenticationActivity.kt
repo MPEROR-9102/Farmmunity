@@ -16,8 +16,8 @@ import com.example.farmmunity.R
 import com.example.farmmunity.authentication.core.AuthenticationConstants.RC_GOOGLE_SIGN_IN
 import com.example.farmmunity.authentication.core.AuthenticationUtils.Companion.printError
 import com.example.farmmunity.authentication.core.PhoneAuthResult
-import com.example.farmmunity.authentication.navigation.NavGraph
-import com.example.farmmunity.home.HomeActivity
+import com.example.farmmunity.authentication.navigation.AuthenticationNavGraph
+import com.example.farmmunity.home.presentation.HomeActivity
 import com.example.farmmunity.ui.theme.FarmmunityTheme
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -77,7 +77,7 @@ class AuthenticationActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navHostController = rememberNavController()
-                    NavGraph(
+                    AuthenticationNavGraph(
                         navHostController = navHostController,
                         authenticationViewModel = authenticationViewModel,
                         phoneAuthOptionsBuilder = phoneAuthOptionsBuilder

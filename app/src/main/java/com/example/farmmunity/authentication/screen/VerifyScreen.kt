@@ -52,15 +52,17 @@ fun VerifyScreen(
         if (authenticationViewModel.loadingState.value) {
             CircularProgressIndicator()
         }
-        OutlinedButton(onClick = {
-            try {
-                authenticationViewModel.loadingState.value = true
-                authenticationViewModel.onVerifyEvent(VerifyEvent.OnCodeSubmit)
-            } catch (exception: InvalidCodeException) {
-                authenticationViewModel.loadingState.value = false
-                invalidCode = true
+        OutlinedButton(
+            onClick = {
+                try {
+                    authenticationViewModel.loadingState.value = true
+                    authenticationViewModel.onVerifyEvent(VerifyEvent.OnCodeSubmit)
+                } catch (exception: InvalidCodeException) {
+                    authenticationViewModel.loadingState.value = false
+                    invalidCode = true
+                }
             }
-        }) {
+        ) {
             Text(text = AuthenticationConstants.SUBMIT)
         }
     }
