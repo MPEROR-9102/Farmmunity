@@ -1,6 +1,8 @@
 package com.example.farmmunity.home.data.repository
 
 import android.net.Uri
+import com.example.farmmunity.home.domain.model.Answer
+import com.example.farmmunity.home.domain.model.Profile
 import com.example.farmmunity.home.domain.model.Question
 import com.example.farmmunity.home.domain.model.Response
 import com.example.farmmunity.home.domain.repository.QuestionsRepository
@@ -46,10 +48,6 @@ class QuestionsRepositoryImpl(
             try {
                 emit(Response.Loading)
                 val questionId = questionsRef.document().id
-
-//                val answerId = questionsRef.document(questionId).collection("answers")
-//                    .document().id
-
                 val photoUrl = if (photo != Uri.EMPTY) suspendCoroutine<Uri> {
                     storageReference.child("images/$questionId").putFile(photo)
                         .addOnCompleteListener { uploadTask ->
@@ -68,19 +66,12 @@ class QuestionsRepositoryImpl(
                     title = title,
                     description = description,
                     photoUrl = photoUrl.toString(),
-                    profile = Question.Profile(
+                    profile = Profile(
                         name = currentUser?.displayName ?: "",
                         photo = currentUser?.photoUrl.toString()
                     )
                 )
-
-//                val answer = Answer(uid = answerId)
-
                 val addition = questionsRef.document(questionId).set(question).await()
-
-//                val addition = questionsRef.document(questionId).collection("answers")
-//                    .document(answerId).set(answer).await()
-
                 emit(Response.Success(addition))
             } catch (exception: Exception) {
                 emit(Response.Error(exception.localizedMessage ?: exception.toString()))
@@ -96,6 +87,44 @@ class QuestionsRepositoryImpl(
             emit(Response.Success(question))
         } catch (exception: Exception) {
             emit(Response.Error(exception.localizedMessage ?: exception.toString()))
+        }
+    }
+
+    override fun addAnswer(questionId: String, answerTitle: String)
+            : Flow<Response<Void?>> = flow {
+        emit(Response.Loading)
+        try {
+            val answerId =
+                questionsRef.document(questionId).collection("answers").document().id
+            val answer = Answer(
+                answerId,
+                title = answerTitle
+            )
+            val addition =
+                questionsRef.document(questionId)
+                    .collection("answers")
+                    .document(answerId)
+                    .set(answer).await()
+            emit(Response.Success(addition))
+        } catch (exception: Exception) {
+            emit(Response.Error(exception.localizedMessage ?: exception.toString()))
+        }
+    }
+
+    override fun getAnswers(questionId: String): Flow<Response<List<Answer>>> = callbackFlow {
+        val snapshot =
+            questionsRef.document(questionId)
+                .collection("answers").addSnapshotListener { value, error ->
+                    val response = if (value != null) {
+                        val answers = value.toObjects(Answer::class.java)
+                        Response.Success(answers)
+                    } else {
+                        Response.Error(error?.localizedMessage ?: error.toString())
+                    }
+                    trySend(response).isSuccess
+                }
+        awaitClose {
+            snapshot.remove()
         }
     }
 }

@@ -3,10 +3,7 @@ package com.example.farmmunity.di
 import com.example.farmmunity.home.core.HomeConstants
 import com.example.farmmunity.home.data.repository.QuestionsRepositoryImpl
 import com.example.farmmunity.home.domain.repository.QuestionsRepository
-import com.example.farmmunity.home.domain.use_case.AddQuestion
-import com.example.farmmunity.home.domain.use_case.GetQuestionById
-import com.example.farmmunity.home.domain.use_case.GetQuestions
-import com.example.farmmunity.home.domain.use_case.UseCases
+import com.example.farmmunity.home.domain.use_case.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -59,6 +56,8 @@ object AppModule {
         UseCases(
             getQuestions = GetQuestions(questionsRepository),
             addQuestion = AddQuestion(questionsRepository),
-            getQuestionById = GetQuestionById(questionsRepository)
+            getQuestionById = GetQuestionById(questionsRepository),
+            addAnswer = AddAnswer(questionsRepository),
+            getAnswers = GetAnswers(questionsRepository)
         )
 }

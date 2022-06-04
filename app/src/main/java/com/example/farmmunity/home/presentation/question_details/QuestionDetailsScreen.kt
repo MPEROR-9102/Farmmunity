@@ -7,9 +7,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +21,8 @@ import com.example.farmmunity.authentication.component.ProgressIndicator
 import com.example.farmmunity.core.AppConstants
 import com.example.farmmunity.home.core.HomeUtils.Companion.getFormattedPosted
 import com.example.farmmunity.home.domain.model.Response
+import com.example.farmmunity.home.presentation.question_details.component.AnswerEntryDialog
+import com.example.farmmunity.home.presentation.question_details.component.AnswerItem
 import com.example.farmmunity.home.presentation.question_details.component.PhotoSection
 import com.example.farmmunity.home.presentation.question_details.component.ProfileSection
 
@@ -30,7 +33,22 @@ fun QuestionDetailsScreen(
     questionDetailsViewModel: QuestionDetailsViewModel = hiltViewModel()
 ) {
 
-    Scaffold {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    questionDetailsViewModel.openDialog.value = true
+                }
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            }
+        }
+    ) {
+
+        if (questionDetailsViewModel.openDialog.value) {
+            AnswerEntryDialog()
+        }
+
         when (val event = questionDetailsViewModel.questionDetailsState.value) {
             Response.Loading -> {
                 ProgressIndicator()
@@ -61,6 +79,14 @@ fun QuestionDetailsScreen(
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(text = question.description)
                         }
+                    }
+                    when (val answers = questionDetailsViewModel.answersState.value) {
+                        is Response.Success -> {
+                            items(answers.data) {
+                                AnswerItem(answer = it)
+                            }
+                        }
+                        else -> {}
                     }
                 }
             }

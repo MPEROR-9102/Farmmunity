@@ -12,11 +12,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.farmmunity.home.domain.model.Question
+import com.example.farmmunity.home.domain.model.Profile
 
 @Composable
 fun ProfileSection(
-    profile: Question.Profile,
+    profile: Profile,
     posted: String,
     modifier: Modifier = Modifier
 ) {
