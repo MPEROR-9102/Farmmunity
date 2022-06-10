@@ -46,7 +46,10 @@ class QuestionDetailsViewModel @Inject constructor(
             is QuestionDetailsEvent.OnSubmitAnswerClicked -> {
                 openDialog.value = false
                 viewModelScope.launch {
-                    useCases.addAnswer(questionId, questionDetailsEvent.answer).collect {
+                    useCases.addAnswer(
+                        questionId,
+                        questionDetailsEvent.answer
+                    ).collect {
                         _answerAdditionState.value = it
                     }
                 }

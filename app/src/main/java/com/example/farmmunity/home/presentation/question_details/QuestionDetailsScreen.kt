@@ -82,8 +82,24 @@ fun QuestionDetailsScreen(
                     }
                     when (val answers = questionDetailsViewModel.answersState.value) {
                         is Response.Success -> {
-                            items(answers.data) {
-                                AnswerItem(answer = it)
+                            if (answers.data.isNotEmpty()) {
+                                item {
+                                    Text(
+                                        text = "Answers",
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(
+                                            top = 24.dp,
+                                            bottom = 16.dp,
+                                            start = 16.dp,
+                                        )
+                                    )
+                                }
+                                items(answers.data) {
+                                    AnswerItem(
+                                        answer = it,
+                                        modifier = Modifier.padding(horizontal = 16.dp)
+                                    )
+                                }
                             }
                         }
                         else -> {}

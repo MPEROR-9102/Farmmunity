@@ -67,6 +67,7 @@ class QuestionsRepositoryImpl(
                     description = description,
                     photoUrl = photoUrl.toString(),
                     profile = Profile(
+                        uid = currentUser?.uid ?: "",
                         name = currentUser?.displayName ?: "",
                         photo = currentUser?.photoUrl.toString()
                     )
@@ -97,8 +98,13 @@ class QuestionsRepositoryImpl(
             val answerId =
                 questionsRef.document(questionId).collection("answers").document().id
             val answer = Answer(
-                answerId,
-                title = answerTitle
+                uid = answerId,
+                title = answerTitle,
+                profile = Profile(
+                    uid = currentUser?.uid ?: "",
+                    name = currentUser?.displayName ?: "",
+                    photo = currentUser?.photoUrl.toString()
+                )
             )
             val addition =
                 questionsRef.document(questionId)
