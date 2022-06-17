@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.farmmunity.R
 import com.example.farmmunity.authentication.core.AuthenticationConstants
-import com.example.farmmunity.core.AppConstants
+import com.example.farmmunity.ui.theme.Brown
 
 
 @Composable
@@ -39,7 +39,7 @@ fun GoogleButton(
         Text(
             text = AuthenticationConstants.GOOGLE_TEXT,
             style = MaterialTheme.typography.button.copy(
-                color = AppConstants.COLOR_BROWN,
+                color = Brown,
                 fontWeight = FontWeight.Bold
             )
         )

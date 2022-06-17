@@ -24,6 +24,7 @@ import com.example.farmmunity.authentication.component.ProgressIndicator
 import com.example.farmmunity.authentication.core.AuthenticationUtils.Companion.printError
 import com.example.farmmunity.authentication.navigation.AuthenticationScreen
 import com.example.farmmunity.core.AppConstants
+import com.example.farmmunity.ui.theme.Brown
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -74,7 +75,7 @@ fun IntroScreen(
                 text = AppConstants.APP_NAME,
                 style = MaterialTheme.typography.h2.copy(
                     fontWeight = FontWeight.Bold,
-                    color = AppConstants.COLOR_BROWN.copy(alpha = .75f)
+                    color = Brown.copy(alpha = .75f)
                 ),
                 fontFamily = lobsterFontFamily
             )

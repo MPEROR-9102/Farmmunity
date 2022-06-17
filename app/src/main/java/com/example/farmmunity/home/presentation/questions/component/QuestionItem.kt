@@ -18,9 +18,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.farmmunity.core.AppConstants
 import com.example.farmmunity.home.core.HomeUtils
 import com.example.farmmunity.home.domain.model.Question
+import com.example.farmmunity.ui.theme.Brown
 
 @Composable
 fun QuestionItem(
@@ -54,7 +54,7 @@ fun QuestionItem(
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(
                     text = HomeUtils.getFormattedPosted(question.posted),
-                    color = AppConstants.COLOR_BROWN,
+                    color = Brown,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -72,7 +72,7 @@ fun QuestionItem(
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = question.profile.name,
-                        color = AppConstants.COLOR_BROWN,
+                        color = Brown,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -81,7 +81,7 @@ fun QuestionItem(
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = question.title,
-                        color = AppConstants.COLOR_BROWN,
+                        color = Brown,
                         maxLines = 1,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
@@ -90,15 +90,15 @@ fun QuestionItem(
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = question.description,
-                        color = AppConstants.COLOR_BROWN,
+                        color = Brown,
                         fontSize = 14.sp,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "2 Answers",
-                        color = AppConstants.COLOR_BROWN,
+                        text = HomeUtils.getFormattedAnswerCount(question.answerCount),
+                        color = Brown,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier

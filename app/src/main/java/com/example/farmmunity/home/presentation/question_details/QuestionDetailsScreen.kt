@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -21,10 +22,7 @@ import com.example.farmmunity.authentication.component.ProgressIndicator
 import com.example.farmmunity.core.AppConstants
 import com.example.farmmunity.home.core.HomeUtils.Companion.getFormattedPosted
 import com.example.farmmunity.home.domain.model.Response
-import com.example.farmmunity.home.presentation.question_details.component.AnswerEntryDialog
-import com.example.farmmunity.home.presentation.question_details.component.AnswerItem
-import com.example.farmmunity.home.presentation.question_details.component.PhotoSection
-import com.example.farmmunity.home.presentation.question_details.component.ProfileSection
+import com.example.farmmunity.home.presentation.question_details.component.*
 
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -68,16 +66,18 @@ fun QuestionDetailsScreen(
                             ProfileSection(
                                 profile = question.profile,
                                 posted = getFormattedPosted(question.posted),
-                                modifier = Modifier
-                                    .padding(horizontal = 8.dp)
-                                    .padding(top = 8.dp, bottom = 32.dp)
+                                modifier = Modifier.padding(top = 8.dp, bottom = 32.dp)
                             )
                             Text(
                                 text = question.title,
-                                style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold)
+                                style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold),
+                                textAlign = TextAlign.Justify
                             )
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text(text = question.description)
+                            Text(
+                                text = question.description,
+                                textAlign = TextAlign.Justify
+                            )
                         }
                     }
                     when (val answers = questionDetailsViewModel.answersState.value) {
@@ -100,9 +100,20 @@ fun QuestionDetailsScreen(
                                         modifier = Modifier.padding(horizontal = 16.dp)
                                     )
                                 }
+                            } else {
+                                item {
+                                    NoAnswersItem(
+                                        text = "No Answers Yet...",
+                                        modifier = Modifier
+                                            .padding(top = 24.dp)
+                                            .padding(horizontal = 16.dp)
+                                    )
+                                }
                             }
                         }
-                        else -> {}
+                        else -> {
+                            item { Text(text = "Error Loading Questions") }
+                        }
                     }
                 }
             }

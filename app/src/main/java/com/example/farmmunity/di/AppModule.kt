@@ -58,6 +58,7 @@ object AppModule {
             addQuestion = AddQuestion(questionsRepository),
             getQuestionById = GetQuestionById(questionsRepository),
             addAnswer = AddAnswer(questionsRepository),
-            getAnswers = GetAnswers(questionsRepository)
+            getAnswers = GetAnswers(questionsRepository),
+            updateAnswerCount = UpdateAnswerCount(questionsRepository)
         )
 }

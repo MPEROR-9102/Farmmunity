@@ -1,15 +1,18 @@
 package com.example.farmmunity.home.presentation.question_details
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.farmmunity.core.AppConstants
 import com.example.farmmunity.home.domain.model.Answer
 import com.example.farmmunity.home.domain.model.Question
 import com.example.farmmunity.home.domain.model.Response
 import com.example.farmmunity.home.domain.use_case.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,12 +31,18 @@ class QuestionDetailsViewModel @Inject constructor(
     private val _answersState = mutableStateOf<Response<List<Answer>>>(Response.Loading)
     val answersState: State<Response<List<Answer>>> = _answersState
 
-    private val _answerAdditionState = mutableStateOf<Response<Void?>>(Response.Success(null))
+    private val answerAdditionState = mutableStateOf<Response<Void?>>(Response.Success(null))
+
+    private var answerCount = 0
 
     init {
         viewModelScope.launch {
             useCases.getQuestionById(questionId).collect {
                 _questionDetailsState.value = it
+                if (it is Response.Success) {
+                    answerCount = it.data.answerCount
+                    Log.d(AppConstants.TAG, ": Count == $answerCount")
+                }
             }
             useCases.getAnswers(questionId).collect {
                 _answersState.value = it
@@ -50,10 +59,24 @@ class QuestionDetailsViewModel @Inject constructor(
                         questionId,
                         questionDetailsEvent.answer
                     ).collect {
-                        _answerAdditionState.value = it
+                        answerAdditionState.value = it
+                        if (it is Response.Success) {
+                            answerCount += 1
+                        }
                     }
                 }
             }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+//        Log.d(AppConstants.TAG, "onCleared: ViewModel Cleared & AnswerCount = $answerCount")
+        GlobalScope.launch {
+            useCases.updateAnswerCount(
+                questionId,
+                answerCount
+            )
         }
     }
 }

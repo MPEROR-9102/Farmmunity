@@ -133,4 +133,8 @@ class QuestionsRepositoryImpl(
             snapshot.remove()
         }
     }
+
+    override fun updateAnswerCount(questionId: String, count: Int) {
+        questionsRef.document(questionId).update("answerCount", count)
+    }
 }

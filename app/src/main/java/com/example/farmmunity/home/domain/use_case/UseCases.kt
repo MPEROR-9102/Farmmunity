@@ -5,5 +5,6 @@ data class UseCases(
     val addQuestion: AddQuestion,
     val getQuestionById: GetQuestionById,
     val addAnswer: AddAnswer,
-    val getAnswers: GetAnswers
+    val getAnswers: GetAnswers,
+    val updateAnswerCount: UpdateAnswerCount
 )

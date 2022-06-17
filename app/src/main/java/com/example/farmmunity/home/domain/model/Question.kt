@@ -6,5 +6,6 @@ data class Question(
     val title: String = "",
     val description: String = "",
     val photoUrl: String = "",
+    val answerCount: Int = 0,
     val posted: Long = System.currentTimeMillis()
 )

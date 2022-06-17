@@ -25,7 +25,7 @@ fun PhotoSection(
         modifier = if (photoUrl.isBlank()) {
             Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(Color.DarkGray)
         } else {
             Modifier
         }

@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.farmmunity.authentication.core.AuthenticationConstants
-import com.example.farmmunity.core.AppConstants
+import com.example.farmmunity.ui.theme.Brown
 
 @Composable
 fun PhoneButton(
@@ -22,7 +22,7 @@ fun PhoneButton(
 ) {
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(AppConstants.COLOR_BROWN),
+        colors = ButtonDefaults.buttonColors(Brown),
         modifier = modifier
     ) {
         Icon(

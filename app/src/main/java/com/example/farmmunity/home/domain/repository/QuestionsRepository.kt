@@ -14,12 +14,13 @@ interface QuestionsRepository {
         title: String,
         description: String,
         photo: Uri
-    )
-            : Flow<Response<Void?>>
+    ): Flow<Response<Void?>>
 
     fun getQuestionById(uid: String): Flow<Response<Question>>
 
     fun addAnswer(questionId: String, answerTitle: String): Flow<Response<Void?>>
 
     fun getAnswers(questionId: String): Flow<Response<List<Answer>>>
+
+    fun updateAnswerCount(questionId: String, count: Int)
 }
