@@ -1,6 +1,6 @@
 package com.example.farmmunity.authentication.screen
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -8,8 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -52,63 +51,53 @@ fun IntroScreen(
             }
         }
     }
-
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Brown)
+            .padding(horizontal = 16.dp)
+            .padding(top = 160.dp, bottom = 32.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.farm),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+        Text(
+            text = AppConstants.APP_NAME,
+            style = MaterialTheme.typography.h2.copy(
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            ),
+            fontFamily = lobsterFontFamily
         )
         Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .padding(top = 160.dp, bottom = 32.dp),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxHeight(.5f)
+                .fillMaxWidth()
         ) {
-            Text(
-                text = AppConstants.APP_NAME,
-                style = MaterialTheme.typography.h2.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = Brown.copy(alpha = .75f)
-                ),
-                fontFamily = lobsterFontFamily
-            )
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxHeight(.5f)
-                    .fillMaxWidth()
+            GoogleButton(
+                modifier = Modifier.fillMaxWidth(.8f)
             ) {
-                GoogleButton(
-                    modifier = Modifier.fillMaxWidth(.8f)
-                ) {
-                    authenticationViewModel.onGoogleSignInClicked()
-                }
-                Spacer(modifier = Modifier.height(32.dp))
-                PhoneButton(
-                    modifier = Modifier.fillMaxWidth(.8f)
-                ) {
-                    printError("Reach 1")
-                    authenticationViewModel.openDialog.value = true
-                }
+                authenticationViewModel.onGoogleSignInClicked()
+            }
+            Spacer(modifier = Modifier.height(32.dp))
+            PhoneButton(
+                modifier = Modifier.fillMaxWidth(.8f)
+            ) {
+                printError("Reach 1")
+                authenticationViewModel.openDialog.value = true
             }
         }
+    }
 
-        if (authenticationViewModel.openDialog.value) {
-            PhoneAlertDialog(authenticationViewModel)
-        }
-        if (authenticationViewModel.loadingState.value) {
-            ProgressIndicator()
-        }
+    if (authenticationViewModel.openDialog.value) {
+        PhoneAlertDialog(authenticationViewModel)
+    }
+    if (authenticationViewModel.loadingState.value) {
+        ProgressIndicator()
     }
 }
+
 
 //context.startActivity(Intent(context, HomeActivity::class.java))
 //(context as Activity).finish()

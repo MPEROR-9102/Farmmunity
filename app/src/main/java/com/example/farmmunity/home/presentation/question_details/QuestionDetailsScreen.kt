@@ -12,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,15 +32,23 @@ fun QuestionDetailsScreen(
     questionDetailsViewModel: QuestionDetailsViewModel = hiltViewModel()
 ) {
 
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    questionDetailsViewModel.openDialog.value = true
+    val scaffoldState = rememberScaffoldState()
+
+    LaunchedEffect(key1 = true) {
+        questionDetailsViewModel.uiEvent.collect {
+            when (it) {
+                is QuestionDetailsViewModel.QuestionDetailsUIEvent.ShowMessage -> {
+                    scaffoldState.snackbarHostState.showSnackbar(it.message)
                 }
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
+        }
+    }
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        floatingActionButton = {
+            FloatingActionButton(onClick = { questionDetailsViewModel.openDialog.value = true })
+            { Icon(imageVector = Icons.Default.Add, contentDescription = null) }
         }
     ) {
 

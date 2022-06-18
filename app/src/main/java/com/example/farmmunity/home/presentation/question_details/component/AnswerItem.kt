@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -36,14 +37,17 @@ fun AnswerItem(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 8.dp)
+                    .padding(start = 8.dp, end = 8.dp)
             ) {
                 Text(
                     text = "${answer.profile.name} • ${HomeUtils.getFormattedPosted(answer.posted)}",
                     fontSize = 12.sp
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = answer.title)
+                Text(
+                    text = answer.title,
+                    textAlign = TextAlign.Justify
+                )
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }

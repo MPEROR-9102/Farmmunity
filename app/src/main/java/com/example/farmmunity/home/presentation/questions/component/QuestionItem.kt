@@ -12,15 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.farmmunity.R
 import com.example.farmmunity.home.core.HomeUtils
 import com.example.farmmunity.home.domain.model.Question
-import com.example.farmmunity.ui.theme.Brown
 
 @Composable
 fun QuestionItem(
@@ -48,13 +51,17 @@ fun QuestionItem(
                     model = question.photoUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.height(250.dp)
+                    modifier = Modifier
+                        .height(250.dp)
+                        .background(Color.LightGray),
+                    filterQuality = FilterQuality.Low,
+                    placeholder = painterResource(id = R.drawable.image_placeholder)
                 )
             }
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(
                     text = HomeUtils.getFormattedPosted(question.posted),
-                    color = Brown,
+                    color = Color.Black,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -72,7 +79,7 @@ fun QuestionItem(
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = question.profile.name,
-                        color = Brown,
+                        color = Color.Black,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -81,24 +88,26 @@ fun QuestionItem(
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = question.title,
-                        color = Brown,
+                        color = Color.Black,
                         maxLines = 1,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Justify
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = question.description,
-                        color = Brown,
+                        color = Color.Black,
                         fontSize = 14.sp,
                         maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Justify
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = HomeUtils.getFormattedAnswerCount(question.answerCount),
-                        color = Brown,
+                        color = Color.Black,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier

@@ -22,20 +22,20 @@ fun PhoneButton(
 ) {
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(Brown),
+        colors = ButtonDefaults.buttonColors(Color.White),
         modifier = modifier
     ) {
         Icon(
             imageVector = Icons.Default.Phone,
             contentDescription = null,
-            tint = Color.White,
+            tint = Brown,
             modifier = Modifier.size(30.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = AuthenticationConstants.PHONE_TEXT,
             style = MaterialTheme.typography.button.copy(
-                color = Color.White,
+                color = Brown,
                 fontWeight = FontWeight.Bold
             )
         )

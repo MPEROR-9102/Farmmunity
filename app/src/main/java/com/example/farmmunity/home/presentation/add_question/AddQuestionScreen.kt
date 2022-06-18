@@ -85,29 +85,25 @@ fun AddQuestionScreen(
                     }
                     TextField(
                         value = title,
-                        onValueChange = onTitleChanged,
+                        onValueChange = { if (it.length <= 50) onTitleChanged(it) },
                         modifier = Modifier
                             .fillMaxHeight(.1f)
                             .fillMaxWidth()
                             .constrainAs(questionText) {
                                 top.linkTo(photoItem.bottom, margin = 32.dp)
                             },
-                        placeholder = {
-                            Text(text = "Question...")
-                        }
+                        label = { Text(text = "Question") }
                     )
                     TextField(
                         value = description,
-                        onValueChange = onDescriptionChange,
+                        onValueChange = { if (it.length <= 200) onDescriptionChange(it) },
                         modifier = Modifier
                             .fillMaxHeight(.2f)
                             .fillMaxWidth()
                             .constrainAs(descriptionText) {
                                 top.linkTo(questionText.bottom, margin = 16.dp)
                             },
-                        placeholder = {
-                            Text(text = "Description...")
-                        }
+                        label = { Text(text = "Description") }
                     )
                     if (addQuestionViewModel.uploadUrl.value == Uri.EMPTY) {
                         Column(

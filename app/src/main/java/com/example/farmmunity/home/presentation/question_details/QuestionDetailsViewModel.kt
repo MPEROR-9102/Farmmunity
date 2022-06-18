@@ -13,6 +13,8 @@ import com.example.farmmunity.home.domain.model.Response
 import com.example.farmmunity.home.domain.use_case.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +32,9 @@ class QuestionDetailsViewModel @Inject constructor(
 
     private val _answersState = mutableStateOf<Response<List<Answer>>>(Response.Loading)
     val answersState: State<Response<List<Answer>>> = _answersState
+
+    private val _uiEvent = MutableSharedFlow<QuestionDetailsUIEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
 
     private val answerAdditionState = mutableStateOf<Response<Void?>>(Response.Success(null))
 
@@ -55,14 +60,22 @@ class QuestionDetailsViewModel @Inject constructor(
             is QuestionDetailsEvent.OnSubmitAnswerClicked -> {
                 openDialog.value = false
                 viewModelScope.launch {
-                    useCases.addAnswer(
-                        questionId,
-                        questionDetailsEvent.answer
-                    ).collect {
-                        answerAdditionState.value = it
-                        if (it is Response.Success) {
-                            answerCount += 1
+                    try {
+                        useCases.addAnswer(
+                            questionId,
+                            questionDetailsEvent.answer
+                        ).collect {
+                            answerAdditionState.value = it
+                            if (it is Response.Success) {
+                                answerCount += 1
+                            }
                         }
+                    } catch (exception: Exception) {
+                        _uiEvent.emit(
+                            QuestionDetailsUIEvent.ShowMessage(
+                                exception.message ?: exception.toString()
+                            )
+                        )
                     }
                 }
             }
@@ -78,5 +91,9 @@ class QuestionDetailsViewModel @Inject constructor(
                 answerCount
             )
         }
+    }
+
+    sealed class QuestionDetailsUIEvent {
+        data class ShowMessage(val message: String) : QuestionDetailsUIEvent()
     }
 }

@@ -12,9 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.farmmunity.R
 
 @Composable
 fun PhotoSection(
@@ -36,8 +39,11 @@ fun PhotoSection(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp),
-                contentScale = ContentScale.Crop
+                    .height(300.dp)
+                    .background(Color.LightGray),
+                contentScale = ContentScale.Crop,
+                filterQuality = FilterQuality.High,
+                placeholder = painterResource(id = R.drawable.image_placeholder)
             )
         }
         Box(
