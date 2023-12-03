@@ -12,4 +12,5 @@ One of the standout features of Farmmunity is the integration of an image-based 
 By incorporating MobileNetV2 for plant disease classification, Farmmunity empowers users with valuable insights into the health of their crops. The AI-driven observations serve as an initial assessment, aiding farmers in identifying and addressing potential issues promptly.
 
 
-![Home Page](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/cca86718-b1f7-431d-9322-250c7fbbf832)
+![Home Page](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/a6cbce7d-bee7-44ce-a119-c15c87d41aba)
+
