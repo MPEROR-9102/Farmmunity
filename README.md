@@ -13,5 +13,7 @@ By incorporating MobileNetV2 for plant disease classification, Farmmunity empowe
 
 
 
-![Login Page](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/60a47038-2805-491b-94db-2d4d49521107)  ![Phone Login](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/ebfee78e-4a61-4a12-b1f6-b8a4ad338625)  ![Home Page](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/1f03c06f-a0da-4291-a9fd-7e109eb41df9)
-![Forum](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/73ea0774-4f20-47c6-b564-b97d288b1ed2)  ![Comment DialogBox](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/1e346f3d-e1d7-4912-8bc5-35d739ba0af3)  ![AI Insight](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/0cfbaffb-df18-40d4-a2f9-130007b5cb96)
+![Login Page](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/60a47038-2805-491b-94db-2d4d49521107)    ![Phone Login](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/ebfee78e-4a61-4a12-b1f6-b8a4ad338625)    ![Home Page](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/1f03c06f-a0da-4291-a9fd-7e109eb41df9)
+
+
+![Forum](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/73ea0774-4f20-47c6-b564-b97d288b1ed2)    ![Comment DialogBox](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/1e346f3d-e1d7-4912-8bc5-35d739ba0af3)    ![AI Insight](https://github.com/MPEROR-9102/Farmmunity/assets/97546729/0cfbaffb-df18-40d4-a2f9-130007b5cb96)
